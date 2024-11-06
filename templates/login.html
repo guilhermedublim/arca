@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo do sistema -->
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo do Sistema" class="logo">
+
+        <h2>ARCA</h2>
+
+        <form action="{{ url_for('login') }}" method="post">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="password">Senha:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+            </div>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <script>
+    // Função para alternar a visibilidade da senha e o ícone
+    function togglePassword() {
+        const passwordField = document.getElementById("password");
+        const toggleIcon = document.querySelector(".toggle-password");
+
+        // Trocar o tipo de input para mostrar ou ocultar a senha
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+        passwordField.setAttribute("type", type);
+
+        // Alterar o ícone com base no estado da senha
+        toggleIcon.textContent = type === "password" ? "👁️" : "🙈";
+    }
+    </script>
+</body>
+</html>

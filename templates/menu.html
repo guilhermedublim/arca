@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Menu Principal{% endblock %}
+
+{% block content %}
+<h2>Menu Principal</h2>
+<ul>
+    <li><a href="{{ url_for('cadastro_sala') }}">Cadastro de Salas</a></li>
+    <li><a href="{{ url_for('reservas_salas') }}">Reservas de Salas</a></li>
+    <li><a href="#">Configurações de Conta</a></li>
+</ul>
+{% endblock %}

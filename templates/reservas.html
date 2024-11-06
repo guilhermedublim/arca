@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas de Salas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Reservas de Salas</h2>
+    <h3>Salas Disponíveis</h3>
+    <ul>
+        {% for sala in salas %}
+            <li>{{ sala.nome }} - <a href="{{ url_for('reservar', nome_sala=sala.nome) }}">Reservar</a></li>
+        {% endfor %}
+    </ul>
+
+    <h3>Minhas Reservas</h3>
+    <ul>
+        {% for reserva in reservas %}
+            <li>{{ reserva.sala }} reservado por {{ reserva.usuario }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
