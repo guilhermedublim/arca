@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<h2>{{ titulo }}</h2>
+<form method="post" action="{{ action_url }}">
+    <label for="nome">Nome da Sala:</label>
+    <input 
+        type="text" 
+        id="nome" 
+        name="nome" 
+        value="{{ sala.nome if sala else '' }}" 
+        {% if readonly %}readonly{% endif %} 
+        required><br>
+
+    <label for="localizacao">Localização:</label>
+    <input 
+        type="text" 
+        id="localizacao" 
+        name="localizacao" 
+        value="{{ sala.localizacao if sala else '' }}" 
+        {% if readonly %}readonly{% endif %} 
+        required><br>
+
+    <label for="capacidade">Capacidade:</label>
+    <input 
+        type="number" 
+        id="capacidade" 
+        name="capacidade" 
+        value="{{ sala.capacidade if sala else '' }}" 
+        {% if readonly %}readonly{% endif %} 
+        required><br>
+
+    <label for="equipamentos">Equipamentos:</label>
+    <input 
+        type="text" 
+        id="equipamentos" 
+        name="equipamentos" 
+        value="{{ sala.equipamentos if sala else '' }}" 
+        {% if readonly %}readonly{% endif %}><br>
+
+    {% if not readonly %}
+    <button type="submit">{{ botao_texto }} Confirmar </button>
+    {% endif %}
+    <a href="{{ url_for('listar_salas') }}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}

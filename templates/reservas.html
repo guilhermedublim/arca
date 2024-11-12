@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reservas de Salas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Cadastro de Sala{% endblock %}
+
+{% block content %}
     <h2>Reservas de Salas</h2>
     <h3>Salas Disponíveis</h3>
     <ul>
@@ -20,5 +17,4 @@
             <li>{{ reserva.sala }} reservado por {{ reserva.usuario }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

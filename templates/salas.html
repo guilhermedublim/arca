@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Listar Salas{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Lista de Salas</h1>
+    <div class="search-bar">
+        <label for="search">Pesquisar</label>
+        <input type="text" id="search" placeholder="Pesquisar">
+    </div>
+    <div class="button-container">
+        <form action="{{ url_for('cadastrar_sala') }}" method="GET" style="display:inline;">
+            <button type="submit" class="button">Cadastrar Nova Sala</button>
+        </form>
+    </div>
+    <div class="table-container">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>ID<span class="filter-icon">🔽</span></th>
+                    <th>Nome<span class="filter-icon">🔽</span></th>
+                    <th>Localização<span class="filter-icon">🔽</span></th>
+                    <th>Capacidade<span class="filter-icon">🔽</span></th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sala in salas %}
+                <tr>
+                    <td>{{ sala.id }}</td>
+                    <td>{{ sala.nome }}</td>
+                    <td>{{ sala.localizacao }}</td>
+                    <td>{{ sala.capacidade }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{{ url_for('visualizar_sala', sala_id=sala.id) }}" class="button">Visualizar</a>
+                            <a href="{{ url_for('editar_sala', sala_id=sala.id) }}" class="button">Alterar</a>
+                            <form action="{{ url_for('excluir_sala', sala_id=sala.id) }}" method="POST" style="margin: 0;">
+                                <button type="submit" class="button danger">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        {% if pagination.has_prev %}
+        <a href="{{ url_for('listar_salas', page=pagination.prev_num) }}">&laquo;</a>
+        {% endif %}
+        {% for page_num in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+        {% if page_num %}
+            {% if page_num == pagination.page %}
+            <button class="active">{{ page_num }}</button>
+            {% else %}
+            <a href="{{ url_for('listar_salas', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+        {% if pagination.has_next %}
+        <a href="{{ url_for('listar_salas', page=pagination.next_num) }}">&raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
