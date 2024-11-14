@@ -79,7 +79,7 @@ input[type="text"], input[type="password"], input[type="number"] {
 button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #6449c5;
     color: white;
     border: none;
     border-radius: 4px;
@@ -90,7 +90,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #6449c5;
 }
 
 ul {
@@ -104,7 +104,7 @@ ul li {
 }
 
 a {
-    color: #007bff;
+    color: #6449c5;
     text-decoration: none;
 }
 
@@ -138,7 +138,7 @@ header h1 {
 
 .menu-options h2 {
     font-size: 20px;
-    color: #007bff;
+    color: #6449c5;
     margin-bottom: 10px;
 }
 
@@ -153,7 +153,7 @@ header h1 {
 .menu-options ul li a {
     display: block;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #6449c5;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -161,7 +161,7 @@ header h1 {
 }
 
 .menu-options ul li a:hover {
-    background-color: #0056b3;
+    background-color: #6449c5;
 }
 
 .notifications {
@@ -170,7 +170,7 @@ header h1 {
 
 .notifications h2 {
     font-size: 20px;
-    color: #007bff;
+    color: #6449c5;
     margin-bottom: 10px;
 }
 
@@ -193,7 +193,7 @@ footer {
 .sidebar {
     width: 60px;
     height: 100vh;
-    background-color: #007bff;
+    background-color: #6449c5;
     color: white;
     transition: width 0.3s ease;
     overflow: hidden;
@@ -240,7 +240,7 @@ footer {
 }
 
 .menu-list li a:hover {
-    background-color: #0056b3;
+    background-color: #6449c5;
 }
 
 .icon {
@@ -268,7 +268,7 @@ footer {
 .top-bar {
     width: 100%;
     height: 50px;
-    background-color: #007bff;
+    background-color: #6449c5;
     color: white;
     display: flex;
     align-items: center;
@@ -279,6 +279,19 @@ footer {
     top: 0;
     left: 0;
     z-index: 10;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.home-link {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 24px; /* Tamanho do ícone */
 }
 
 .welcome-message {
@@ -322,7 +335,7 @@ footer {
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
     font-size: 16px;
-    color: #007bff;
+    color: #6449c5;
 }
 
 .notification-popup ul {
@@ -397,7 +410,7 @@ h1 {
 }
 
 .styled-table thead {
-    background-color: #3f51b5;
+    background-color: #6449c5;
     color: white;
 }
 
@@ -416,7 +429,7 @@ h1 {
 
 .pagination button {
     border: none;
-    background-color: #3f51b5;
+    background-color: #6449c5;
     color: white;
     padding: 8px 12px;
     margin: 0 5px;
@@ -426,7 +439,7 @@ h1 {
 }
 
 .pagination button.active {
-    background-color: #1a237e;
+    background-color: #6449c5;
 }
 
 .pagination button:hover {
@@ -459,7 +472,7 @@ h1 {
 .button-container .button {
     font-size: 14px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #6449c5;
     color: white;
     border: none;
     border-radius: 4px;
@@ -467,7 +480,7 @@ h1 {
 }
 
 .button-container .button:hover {
-    background-color: #0056b3;
+    background-color: #6449c5;
 }
 
 /* Botões de ação */
@@ -503,14 +516,14 @@ h1 {
     margin: 0;
     border: none;
     border-radius: 4px;
-    background-color: #0056b3;
+    background-color: #6449c5;
     color: white;
     text-decoration: none;
     cursor: pointer;
 }
 
 .action-buttons a.button:hover, .action-buttons button:hover {
-    background-color: #0056b3;
+    background-color: #6449c5;
 }
 
 .action-buttons .danger {
@@ -519,4 +532,208 @@ h1 {
 
 .action-buttons .danger:hover {
     background-color: #b71c1c;
+}
+
+/* Mensagens de feedback */
+/* Container das mensagens */
+.flash-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 1000;
+}
+
+/* Mensagem flash */
+.flash-message {
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeIn 0.5s ease, fadeOut 0.5s ease 4.5s;
+}
+
+/* Categorias de mensagens */
+.flash-message.success {
+    background-color: #28a745; /* Verde para sucesso */
+}
+
+.flash-message.error {
+    background-color: #dc3545; /* Vermelho para erro */
+}
+
+.flash-message.info {
+    background-color: #17a2b8; /* Azul para informações */
+}
+
+.flash-message.warning {
+    background-color: #ffc107; /* Amarelo para avisos */
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Reservas */
+
+/* Formulário Geral */
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Estilização dos grupos de inputs */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #6449c5;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Botões */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #6449c5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #6449c5;
+}
+
+.btn-primary:hover {
+    background-color: #6449c5;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+.form-control[disabled] {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.filter-item {
+    width: 48%; /* Dividir os filtros em 50% de largura com espaçamento */
+}
+
+.filter-container .form-control {
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.mt-3 {
+    margin-top: 1rem;
 }
