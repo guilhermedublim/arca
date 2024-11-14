@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h2>{{ title }}</h2>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+<div class="form-container">
+    <form method="POST">
+        <div class="form-group">
+            <label for="sala_id">Sala:</label>
+            <select name="sala_id" id="sala_id" class="form-control" {% if modo == 'visualizar' %}disabled{% endif %}>
+                <option value="" disabled {% if not reserva or not reserva.sala_id %}selected{% endif %}>Selecione uma sala</option>
+                {% for sala in salas %}
+                <option value="{{ sala.id }}" {% if reserva and reserva.sala_id == sala.id %}selected{% endif %}>
+                    {{ sala.nome }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="usuario_id">Usuário:</label>
+            <select name="usuario_id" id="usuario_id" class="form-control" {% if modo == 'visualizar' %}disabled{% endif %}>
+                <option value="" disabled {% if not reserva or not reserva.usuario_id %}selected{% endif %}>Selecione um usuário</option>
+                {% for usuario in usuarios %}
+                <option value="{{ usuario.id }}" {% if reserva and reserva.usuario_id == usuario.id %}selected{% endif %}>
+                    {{ usuario.nome }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="data_reserva">Data da Reserva:</label>
+            <input type="date" name="data_reserva" id="data_reserva" class="form-control" 
+                   value="{{ reserva.data_reserva if reserva else '' }}" 
+                   {% if modo == 'visualizar' %}disabled{% endif %} required>
+        </div>
+        <div class="form-group">
+            <label for="horario_inicio">Horário de Início:</label>
+            <input type="time" name="horario_inicio" id="horario_inicio" class="form-control" 
+                   value="{{ reserva.horario_inicio if reserva else '' }}" 
+                   {% if modo == 'visualizar' %}disabled{% endif %} required>
+        </div>
+        <div class="form-group">
+            <label for="horario_fim">Horário de Término:</label>
+            <input type="time" step="60" name="horario_fim" id="horario_fim" class="form-control" 
+                   value="{{ reserva.horario_fim.strftime('%H:%M') if reserva and reserva.horario_fim else '' }}" 
+                   {% if modo == 'visualizar' %}disabled{% endif %} required>
+        </div>
+        {% if modo != 'visualizar' %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+            <a href="{{ url_for('listar_reservas') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+        {% else %}
+        <div class="form-actions">
+            <a href="{{ url_for('listar_reservas') }}" class="btn btn-secondary">Voltar</a>
+        </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

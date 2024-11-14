@@ -4,41 +4,61 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body>
     <div class="login-container">
-        <!-- Logo do sistema -->
         <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo do Sistema" class="logo">
-
         <h2>ARCA</h2>
-
         <form action="{{ url_for('login') }}" method="post">
             <label for="username">Usuário:</label>
             <input type="text" id="username" name="username" required><br>
-
             <label for="password">Senha:</label>
             <div class="password-container">
                 <input type="password" id="password" name="password" required>
                 <span class="toggle-password" onclick="togglePassword()">👁️</span>
             </div>
-
             <button type="submit">Entrar</button>
         </form>
     </div>
-
     <script>
-    // Função para alternar a visibilidade da senha e o ícone
+    /**
+     * Função para alternar a visibilidade da senha e o ícone
+     */
     function togglePassword() {
         const passwordField = document.getElementById("password");
         const toggleIcon = document.querySelector(".toggle-password");
-
-        // Trocar o tipo de input para mostrar ou ocultar a senha
         const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
         passwordField.setAttribute("type", type);
-
-        // Alterar o ícone com base no estado da senha
         toggleIcon.textContent = type === "password" ? "👁️" : "🙈";
     }
+
+    // Remove mensagens após a animação de fadeOut
+    document.addEventListener('DOMContentLoaded', function () {
+        const flashMessages = {{ get_flashed_messages(with_categories=true) | tojson }};
+        if (flashMessages) {
+            flashMessages.forEach(([category, message]) => {
+                toastr[category](message);
+            });
+        }
+     });
+
+     toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
     </script>
 </body>
 </html>

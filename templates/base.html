@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Sistema Arca{% endblock %}</title>
-    <!-- Adicione isso dentro do <head> em base.html -->
     <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>  
 </head>
 <body>
     <div class="sidebar" id="sidebar">
@@ -19,7 +21,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url_for('reservas_salas') }}">
+                <a href="{{ url_for('listar_reservas') }}">
                     <i class="bi bi-calendar-event"></i>
                     <span class="text">Reservas de Salas</span>
                 </a>
@@ -34,20 +36,23 @@
     </div>
 
     <script>
-        // Função para expandir/recolher a barra lateral
+        /**
+         * Função para expandir/recolher a barra lateral
+         */
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle("expanded");
         }
     </script>
-
-     <!-- Barra Superior -->
-     <div class="top-bar">
+    <div class="top-bar">
+        <div class="nav-left">
+            <a href="/menu" class="home-link">
+                <i class="bi bi-house"></i>  &nbsp;Menu
+                <span class="text">Menu</span>
+            </a>
+        </div>
         <span class="welcome-message">Bem-vindo ao Sistema Arca</span>
-
-        <!-- Data Atual -->
         <span class="current-date" id="currentDate"></span>
-
         <div class="notification-icon" onclick="toggleNotifications()">
             <i class="bi bi-bell-fill"></i>
             <div class="notification-popup" id="notificationPopup">
@@ -60,20 +65,22 @@
             </div>
         </div>
     </div>
-    <!-- Conteúdo Principal -->
     <div class="menu-container">
-        <!-- O restante do seu menu e conteúdo vai aqui -->
         {% block content %}{% endblock %}
     </div>
 
     <script>
-        // Função para abrir/fechar as notificações
+        /**
+         * Função para abrir/fechar as notificações
+         */
         function toggleNotifications() {
             const popup = document.getElementById("notificationPopup");
             popup.classList.toggle("show");
         }
 
-        // Função para exibir a data atual
+        /**
+         * Função para exibir a data atual
+         */
         function displayCurrentDate() {
             const dateElement = document.getElementById("currentDate");
             const currentDate = new Date();
@@ -82,7 +89,19 @@
         }
 
         // Chama a função de exibição da data ao carregar a página
-        displayCurrentDate();        
+        displayCurrentDate(); 
+        
+        /**
+         * Remove mensagens após a animação de fadeOut
+         */
+        document.addEventListener('DOMContentLoaded', function () {
+            const flashMessages = {{ get_flashed_messages(with_categories=true) | tojson }};
+            if (flashMessages) {
+                flashMessages.forEach(([category, message]) => {
+                    toastr[category](message);
+                });
+            }
+        });
     </script>
 </body>
 </html>
