@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Menu Principal{% endblock %}
+{% block title %}Menu{% endblock %}
 
 {% block content %}
-<h2>Menu Principal</h2>
-<ul>
-    <li><a href="{{ url_for('cadastrar_sala') }}">Cadastro de Salas</a></li>
-    <li><a href="{{ url_for('listar_reservas') }}">Reservas de Salas</a></li>
-    <li><a href="#">Configurações de Conta</a></li>
-</ul>
+<div class="menu-container-menu">
+    <div class="card" onclick="window.location.href='{{ url_for('listar_salas') }}'">
+        <i class="bi bi-building-add"></i>
+        <h2>Salas</h2>
+        <p>Gerencie suas salas</p>
+    </div>
+    <div class="card" onclick="window.location.href='{{ url_for('listar_reservas') }}'">
+        <i class="bi bi-calendar-event"></i>
+        <h2>Reservas</h2>
+        <p>Visualize e gerencie reservas</p>
+    </div>
+    <div class="card" onclick="window.location.href='{{ url_for('editar_perfil') }}'">
+        <i class="bi bi-person"></i>
+        <h2>Editar Perfil</h2>
+        <p>Atualize suas informações</p>
+    </div>
+</div>
 {% endblock %}

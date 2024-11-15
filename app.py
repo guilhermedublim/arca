@@ -23,7 +23,6 @@ with app.app_context():
     db.create_all()
 
 @app.route('/', methods=['GET','POST'])
-@login_required
 def login():
     if request.method == 'POST':
         email = request.form['username']
@@ -47,10 +46,13 @@ def logout():
     flash('Logout realizado com sucesso!', 'info')
     return redirect(url_for('login'))
 
+notificacoes = []
+
 @app.route('/menu')
 @login_required
 def menu():
-    return render_template('menu.html', notificacoes=notificacoes)
+    usuarios = Usuario.query.filter(Usuario.id == session['user_id']).first()
+    return render_template('menu.html', notificacoes=notificacoes, usuarios=usuarios)
 
 @app.route('/salas', methods=['GET'])
 @login_required
@@ -133,7 +135,7 @@ def criar_reserva():
             salas = Sala.query.all()
             usuarios = Usuario.query.all()
             sala_id = request.form['sala_id']
-            usuario_id = current_user.id #request.form['usuario_id']
+            usuario_id = request.form['usuario_id']
             data_reserva = datetime.strptime(request.form['data_reserva'], '%Y-%m-%d').date()
             horario_inicio = datetime.strptime(request.form['horario_inicio'], '%H:%M').time()
             horario_fim = datetime.strptime(request.form['horario_fim'], '%H:%M').time()
@@ -231,6 +233,63 @@ def criar_usuario():
     except Exception as e:
         flash(f'Erro ao criar o usuário: {str(e)}', 'error')
     return redirect(url_for('login'))
+
+@app.route('/conta/configuracoes', methods=['GET', 'POST'])
+@login_required
+def configuracoes_conta():
+    usuario = Usuario.query.get_or_404(current_user.id)
+
+    if request.method == 'POST':
+        try:
+            # Atualizar informações pessoais
+            usuario.email = request.form['email']
+            usuario.telefone = request.form['telefone']
+            db.session.commit()
+            flash('Informações pessoais atualizadas!', 'success')
+
+            # Alterar senha
+            if 'nova_senha' in request.form and 'confirmar_senha' in request.form:
+                nova_senha = request.form['nova_senha']
+                confirmar_senha = request.form['confirmar_senha']
+                if nova_senha == confirmar_senha:
+                    usuario.senha = generate_password_hash(nova_senha)
+                    db.session.commit()
+                    flash('Senha alterada com sucesso!', 'success')
+                else:
+                    flash('As senhas não coincidem!', 'danger')
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Ocorreu um erro: {str(e)}', 'danger')
+
+    return render_template('configuracoes_conta.html', usuario=usuario)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/editar-perfil', methods=['GET', 'POST'])
+@login_required
+def editar_perfil():
+    usuario = Usuario.query.get(session['user_id'])
+
+    if request.method == 'POST':
+        usuario.nome = request.form.get('nome')
+        usuario.email = request.form.get('email')
+        usuario.telefone = request.form.get('telefone')
+        usuario.endereco = request.form.get('endereco')
+        usuario.data_nascimento = datetime.strptime(request.form['data_nascimento'], "%Y-%m-%d").date()
+
+        try:
+            db.session.commit()
+            flash('Perfil atualizado com sucesso!', 'success')
+            return redirect(url_for('menu'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao atualizar o perfil: {str(e)}', 'danger')
+            db.session.rollback()
+        return redirect(url_for('editar_perfil'))
+    return render_template('editar_perfil.html', usuario=usuario)
 
 if __name__ == '__main__':
     app.run(debug=True)

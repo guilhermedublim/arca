@@ -189,6 +189,90 @@ footer {
     color: #777;
 }
 
+/* Container dos ícones no cabeçalho */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os ícones */
+    position: relative;
+}
+
+/* Ícone de usuário */
+#profile-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.3s;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;    
+}
+
+#profile-icon:hover {
+    color: #000;
+}
+
+/* Ícone de notificações */
+#notification-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.3s;
+}
+
+#notification-icon:hover {
+    color: #000;
+}
+
+/* Menu de perfil */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-menu {
+    display: none; /* Inicialmente escondido */
+    position: absolute;
+    top: 35px;
+    left: 0; /* Para alinhar à esquerda do ícone de perfil */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 200px;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.profile-menu a:hover {
+    background: #f0f0f0;
+}
+
+/* Mostrar menu ao passar o mouse ou clicar */
+.profile-dropdown:hover .profile-menu,
+.profile-dropdown.active .profile-menu {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .header-icons {
+        gap: 10px; /* Reduz o espaço entre os ícones */
+    }
+
+    .profile-menu {
+        width: 150px; /* Ajusta a largura do menu em telas pequenas */
+    }
+}
+
 /* Barra lateral */
 .sidebar {
     width: 60px;
@@ -736,4 +820,128 @@ h1 {
 
 .mt-3 {
     margin-top: 1rem;
+}
+
+/* Ícones alinhados */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Ajuste o espaçamento entre os ícones */
+    position: relative;
+}
+
+#profile-icon,
+#notification-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    transition: color 0.3s;
+}
+
+/* Estilização para dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Inicialmente escondido */
+    position: absolute;
+    top: 40px; /* Ajuste para aparecer abaixo do ícone */
+    right: 0; /* Alinhar à direita */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 200px;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #555;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+/** MENU */
+
+/* Geral do container */
+.menu-container-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 40px auto;
+    flex-wrap: wrap;
+}
+
+/* Estilo dos cards */
+.card {
+    width: 200px;
+    height: 200px;
+    background-color: #f4f4f4;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo do texto dentro dos cards */
+.card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.card i {
+    font-size: 24px;
+    color: #555;
+}
+
+/* Para dispositivos menores */
+@media (max-width: 768px) {
+    .menu-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+    }
 }

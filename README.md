@@ -22,7 +22,7 @@ ARCA é um sistema web desenvolvido para facilitar a gestão de salas corporativ
 
 - **Frontend**: HTML, CSS, Bootstrap
 - **Backend**: Python (Flask)
-- **Banco de Dados**: SQLite (ambos suportados)
+- **Banco de Dados**: SQLite
 - **Outras Ferramentas**:
   - SQLAlchemy para ORM
   - Flask-WTF para validação de formulários
@@ -35,12 +35,12 @@ ARCA é um sistema web desenvolvido para facilitar a gestão de salas corporativ
 ### **Pré-requisitos**
 Certifique-se de ter instalado:
 - Python 3.11+
-- PostgreSQL ou SQLite
+- SQLite
 
 ### **Passos**
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/arca.git
+    git clone https://github.com/guilhermedublim/arca.git
     cd arca
     ```
 
@@ -96,7 +96,7 @@ Este projeto é licenciado sob a MIT License.
 
 ---
 📌 To-Do (Roadmap)
-- Implementar autenticação baseada em OAuth.
 - Adicionar suporte para exportar relatórios em PDF.
 - Criar uma API para integração com sistemas externos.
 - Melhorar as notificações de conflito de horários.
+- Integração com o Google Agenda.
