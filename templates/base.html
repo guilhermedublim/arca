@@ -51,8 +51,18 @@
                 <span class="text">Menu</span>
             </a>
         </div>
-        <span class="welcome-message">Bem-vindo ao Sistema Arca</span>
+        <span class="welcome-message">Bem vindo ao Sistema Arca</span>
         <span class="current-date" id="currentDate"></span>
+
+        <div id="profile-dropdown" class="dropdown">
+            <i class="bi bi-person" id="profile-icon"></i>
+            <div id="profile-menu" class="dropdown-menu">
+                <ul>
+                    <li><a href="/editar-perfil">Editar Perfil</a></li>
+                    <li><a href="/configuracoes">Configurações da Conta</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="notification-icon" onclick="toggleNotifications()">
             <i class="bi bi-bell-fill"></i>
             <div class="notification-popup" id="notificationPopup">
@@ -102,6 +112,32 @@
                 });
             }
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileIcon = document.getElementById("profile-icon");
+            const profileMenu = document.getElementById("profile-menu");
+            const notificationMenu = document.getElementById("notification-menu");
+        
+            // Abrir/fechar menu de perfil ao clicar no ícone
+            profileIcon.addEventListener("click", function (event) {
+                event.stopPropagation(); // Impede que o clique feche imediatamente
+                profileMenu.style.display =
+                    profileMenu.style.display === "block" ? "none" : "block";
+        
+                // Fecha o menu de notificações, se aberto
+                if (notificationMenu) {
+                    notificationMenu.style.display = "none";
+                }
+            });
+        
+            // Fechar o menu ao clicar fora
+            document.addEventListener("click", function () {
+                if (profileMenu) {
+                    profileMenu.style.display = "none";
+                }
+            });
+        });
+        
     </script>
 </body>
 </html>
