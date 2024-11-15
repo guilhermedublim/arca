@@ -75,13 +75,10 @@ Certifique-se de ter instalado:
 ## 🌟 **Capturas de Tela**
 
 1. **Tela de Listagem de Salas**  
-   ![Listagem de Salas](docs/screenshots/listagem_salas.png)
+   ![Listagem de Salas](static/listagem_salas.png)
 
 2. **Tela de Cadastro de Reserva**  
-   ![Cadastro de Reserva](docs/screenshots/cadastro_reserva.png)
-
-3. **Dashboard com Estatísticas**
-   ![Dashboard](docs/screenshots/dashboard.png)
+   ![Cadastro de Reserva](static/cadastro_reserva.png)
 
 ---
 🔒 Licença
